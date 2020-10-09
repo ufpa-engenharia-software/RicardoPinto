@@ -1,0 +1,69 @@
+
+entity Produto {
+nome String 
+descricao String 
+preco Integer
+linkfotourl String 
+datacadastro LocalDate
+totalestoque Integer
+estado Estado
+}
+
+enum Estado {
+    Disponivel, Indisponivel
+}
+
+entity Cliente {
+    nome String 
+    telefone Integer 
+    email String 
+    login User 
+    senha User 
+    cependereco Integer 
+    logradouro String 
+    bairro String 
+    cidade String
+}
+
+entity Pedido {
+    //nomecliente String
+    datacadastro ZonedDateTime 
+    precototalpedido Float
+    valortotaltroco Float
+    listapedido String
+    obsentrega String
+    nomeentregador String
+    pagamento Pagamento
+    statuspedido StatusPedido
+
+}
+
+enum Pagamento {
+    Dinheiro, Cartao
+}
+
+enum StatusPedido {
+    Pedido, Emtransito, Entregue 
+}
+
+entity Entregador {
+    nome String 
+    placamoto Float 
+    latitudeatual Float 
+    longitudeatual Float
+    cpf Integer 
+    linkfotoentregador String
+
+}
+
+
+relationship OneToMany {
+    Cliente to Pedido{cliente(nome)}
+    //Cliente to Pedido 
+    Entregador to Pedido
+}
+
+relationship ManyToMany {
+Cliente to Entregador
+Cliente to Produto
+}
